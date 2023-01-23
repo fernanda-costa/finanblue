@@ -1,6 +1,9 @@
 ﻿using Finanblue.Dtos;
 using Finanblue.Models;
 using Finanblue.Services;
+using Finanblue.Validators;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,8 +41,17 @@ namespace Finanblue.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] CompanyDto companyDto)
         {
-            CompanyDto dto = _companyService.Create(companyDto);
-            return CreatedAtAction(nameof(GetById), new { dto.Id }, dto);
+            CompanyValidator validator = new CompanyValidator();
+
+            ValidationResult result = validator.Validate(companyDto);
+
+            if (result.IsValid)
+            {
+                CompanyDto dto = _companyService.Create(companyDto);
+                return CreatedAtAction(nameof(GetById), new { dto.Id }, dto);
+            }
+
+            return BadRequest();
         }
 
         [HttpPut("{id}")]

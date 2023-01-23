@@ -1,6 +1,9 @@
 ﻿using Finanblue.Dtos;
 using Finanblue.Models;
 using Finanblue.Services;
+using Finanblue.Validators;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,8 +43,17 @@ namespace Finanblue.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] CreateOrderDto orderDto)
         {
-            OrderDto dto = _orderService.Create(orderDto);
-            return CreatedAtAction(nameof(GetById), new { dto.Id }, dto);
+            OrderValidator validator = new OrderValidator();
+
+            ValidationResult result = validator.Validate(orderDto);
+
+            if(result.IsValid)
+            {
+                OrderDto dto = _orderService.Create(orderDto);
+                return CreatedAtAction(nameof(GetById), new { dto.Id }, dto);
+            }
+
+            return BadRequest();
         }
 
         [HttpDelete("{id}")]

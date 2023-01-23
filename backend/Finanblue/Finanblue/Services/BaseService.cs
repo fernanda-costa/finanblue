@@ -29,6 +29,8 @@ namespace Finanblue.Services
         public OutputDto Create(InputDto item)
         {
             T entity = _mapper.Map<InputDto, T>(item);
+
+
             _repository.Create(entity);
             OutputDto dto = _mapper.Map<T, OutputDto>(entity);
 
