@@ -1,0 +1,39 @@
+<div *ngIf="!isLoading">
+
+  <table mat-table [dataSource]="companies" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let element">
+        <a [routerLink]="[element.id]">
+          {{element.name}}
+        </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Descrição </th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="w-125"></th>
+      <td mat-cell *matCellDef="let element" class="actions">
+
+        <a [routerLink]="[element.id]">
+          <mat-icon aria-hidden="false" aria-label="Editar" fontIcon="edit"></mat-icon>
+        </a>
+        <a (click)="delete(element.id)">
+          <mat-icon aria-hidden="false" aria-label="Editar" fontIcon="delete"></mat-icon>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
+<div class="actions">
+  <button mat-button routerLink="nova">Nova Empresa</button>
+
+</div>

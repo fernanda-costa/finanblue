@@ -1,0 +1,21 @@
+<mat-card>
+    <mat-card-header>
+        <h2>Nova Empresa</h2>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="form" [formGroup]="companyForm">
+            <mat-form-field>
+                <mat-label>Nome da empresa</mat-label>
+                <input matInput placeholder="Nome da empresa" formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Descrições</mat-label>
+                <input matInput placeholder="Descrição da empresa" formControlName="description">
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button (click)="create()">Salvar</button>
+    </mat-card-actions>
+</mat-card>

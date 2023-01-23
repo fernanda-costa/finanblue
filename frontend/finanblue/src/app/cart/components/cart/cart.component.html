@@ -1,0 +1,31 @@
+<h2>Carrinho</h2>
+<div class="cart" *ngIf="cart?.cartItems?.length; else emptyCart">
+    
+    Valor total: {{cart?.totalValue}}
+    <div class="cart-items">
+        <mat-card *ngFor="let item of cart?.cartItems">
+            <mat-card-header>
+                <span>{{item.product?.name}}</span>
+            </mat-card-header>
+            <mat-card-content>
+                <div>R$ {{item.product?.price}}</div>
+                <div>Quantidade: {{item?.productQuantity}}</div>
+            </mat-card-content>
+        </mat-card>
+    
+    </div>
+   
+    <button mat-button (click)="createOrder()">Finalizar pedido</button>
+    <button mat-button (click)="clearCart()">Limpar carrinho</button>
+</div>
+
+<div>
+</div>
+
+<ng-template #emptyCart>
+    <div class="alert">
+        Nenhum item no carrinho. <br>
+        <a routerLink="/produtos">Produtos</a>
+    </div>
+</ng-template>
+

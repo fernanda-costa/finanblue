@@ -7,6 +7,7 @@ namespace Finanblue.Repositories
     {
         public CompanyRepository(AppDbContext context) : base(context)
         {
+
         }
     }
 }

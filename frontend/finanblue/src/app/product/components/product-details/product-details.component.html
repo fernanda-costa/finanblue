@@ -1,0 +1,24 @@
+<mat-card>
+    <mat-card-header>
+        <h2>Editar produto</h2>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="productForm">
+            <mat-form-field>
+                <mat-label>Nome do produto</mat-label>
+                <input matInput placeholder="Nome do produto" formControlName="name">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Descrição do produto</mat-label>
+                <input matInput placeholder="Nome do produto" formControlName="description">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Preço do produto</mat-label>
+                <input matInput placeholder="Preço do produto" formControlName="price" type="number" step=".01">
+            </mat-form-field>
+        </form>        
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button (click)="update()">Salvar</button>
+    </mat-card-actions>
+</mat-card>

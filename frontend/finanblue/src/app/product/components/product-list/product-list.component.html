@@ -1,0 +1,42 @@
+<table mat-table [dataSource]="products" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Descrição </th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Preço </th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="actions">
+      <th [hidden]="companyId"mat-header-cell *matHeaderCellDef  class="w-125"></th>
+      <td [hidden]="companyId" mat-cell *matCellDef="let element"> 
+        <a (click)="addToCart(element)">
+          <mat-icon aria-hidden="false" aria-label="Adicionar ao carrinho" fontIcon="add_shopping_cart"></mat-icon>
+        </a>
+        <a [routerLink]="[element.id]">
+          <mat-icon aria-hidden="false" aria-label="Editar" fontIcon="edit"></mat-icon>
+        </a>
+        <a (click)="delete(element.id)">
+          <mat-icon aria-hidden="false" aria-label="Remover" fontIcon="delete"></mat-icon>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <button *ngIf="companyId;" mat-button [routerLink]="['/', 'produtos', 'novo', 'empresa', companyId]">Novo produto</button>

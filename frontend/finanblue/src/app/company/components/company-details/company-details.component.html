@@ -1,0 +1,37 @@
+<mat-card>
+    <mat-card-header>
+        <h2>Editar Empresa</h2>
+    </mat-card-header>
+    <mat-card-content *ngIf="!isLoading">
+        <form class="form" [formGroup]="companyForm">
+            <mat-form-field>
+                <mat-label>Nome da empresa</mat-label>
+                <input matInput placeholder="Nome da empresa" formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Descrições</mat-label>
+                <input matInput placeholder="Descrição da empresa" formControlName="description">
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button (click)="update()">Salvar</button>
+    </mat-card-actions>
+</mat-card>
+
+<mat-card *ngIf="!isLoading">
+    <mat-card-header>
+        <h2>Produtos {{ company?.name }}</h2>
+    </mat-card-header>
+    <mat-card-content >
+        <app-product-list [companyId]="companyId"></app-product-list>
+    </mat-card-content>
+</mat-card>
+
+
+
+
+
+
+

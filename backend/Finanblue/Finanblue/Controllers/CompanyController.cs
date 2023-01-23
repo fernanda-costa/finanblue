@@ -20,7 +20,7 @@ namespace Finanblue.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<CompanyDto> list = _companyService.List().ToList<CompanyDto>();
+            List<CompanyDto> list = _companyService.GetAll().ToList<CompanyDto>();
             if (list == null) return NotFound();
             return Ok(list);
         }
@@ -28,7 +28,7 @@ namespace Finanblue.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
         {
-            CompanyDto? dto = _companyService.Find(id);
+            CompanyDto? dto = _companyService.GetByid(id);
 
             if(dto == null) { return NotFound(); };
 
@@ -38,21 +38,31 @@ namespace Finanblue.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] CompanyDto companyDto)
         {
-            CompanyDto dto = _companyService.Add(companyDto);
-            return CreatedAtAction(nameof(GetById), new { Id = dto.Id }, dto);
+            CompanyDto dto = _companyService.Create(companyDto);
+            return CreatedAtAction(nameof(GetById), new { dto.Id }, dto);
         }
 
         [HttpPut("{id}")]
         public IActionResult Update(Guid id, [FromBody] CompanyDto companyDto)
         {
-            _companyService.Edit(companyDto);
+            CompanyDto? dto = _companyService.GetByid(id);
+
+            if (dto == null) { return NotFound(); };
+
+            _companyService.Update(companyDto);
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            _companyService.Remove(id);
+            CompanyDto? dto = _companyService.GetByid(id);
+
+            if (dto == null) { return NotFound(); };
+
+            _companyService.Delete(id);
+
             return NoContent();
         }
     }

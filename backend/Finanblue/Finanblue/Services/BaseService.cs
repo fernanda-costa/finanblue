@@ -5,7 +5,7 @@ using Finanblue.Repositories;
 
 namespace Finanblue.Services
 {
-    public class BaseService<T, DTO> : IBaseService<T, DTO> where T : BaseEntity where DTO : BaseDto
+    public class BaseService<T, InputDto, OutputDto> : IBaseService<T, InputDto, OutputDto> where T : BaseEntity where InputDto : BaseDto where OutputDto : BaseDto
     {
         IBaseRepository<T> _repository;
         private IMapper _mapper;
@@ -16,36 +16,36 @@ namespace Finanblue.Services
             _mapper = mapper;
         }
 
-        public DTO? Find(Guid id)
+        public OutputDto? GetByid(Guid id)
         {
-            return _mapper.Map<DTO>(_repository.GetById(id));
+            return _mapper.Map<OutputDto>(_repository.GetById(id));
         }
 
-        public List<DTO> List()
+        public List<OutputDto> GetAll()
         {
-            return _mapper.Map<List<DTO>>(_repository.GetAll().ToList());
+            return _mapper.Map<List<OutputDto>>(_repository.GetAll().ToList());
         }
 
-        public DTO Add(DTO item)
+        public OutputDto Create(InputDto item)
         {
-            T entity = _mapper.Map<DTO, T>(item);
+            T entity = _mapper.Map<InputDto, T>(item);
             _repository.Create(entity);
-            DTO dto = _mapper.Map<T, DTO>(entity);
+            OutputDto dto = _mapper.Map<T, OutputDto>(entity);
 
             return dto;
 
         }
 
-        public void Remove(Guid id)
+        public void Delete(Guid id)
         {
             T? entity = _repository.GetById(id);
             if(entity != null)
                 _repository.Delete(entity);
         }
 
-        public void Edit(DTO item)
+        public void Update(InputDto item)
         {
-            T entity = _mapper.Map<DTO, T>(item);
+            T entity = _mapper.Map<InputDto, T>(item);
             _repository.Update(entity);
         }
     }

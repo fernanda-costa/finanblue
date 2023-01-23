@@ -1,0 +1,14 @@
+table .actions :not(:last-child) {
+    margin-right: 10px;
+}
+
+.w-125 {
+    width: 125px;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+a { cursor: pointer; }

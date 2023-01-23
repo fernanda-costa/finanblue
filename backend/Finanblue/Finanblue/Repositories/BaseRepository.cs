@@ -7,9 +7,7 @@ namespace Finanblue.Repositories
 {
     public class BaseRepository<Entity> : IBaseRepository<Entity> where Entity : BaseEntity
     {
-
         private AppDbContext _context;
-
         public BaseRepository(AppDbContext context)
         {
             this._context = context;
@@ -22,7 +20,9 @@ namespace Finanblue.Repositories
 
         public Entity? GetById(Guid id)
         {
-            return _context.Set<Entity>().Find(id);
+            Entity? entity = _context.Set<Entity>().Find(id);
+            _context.Entry(entity).State = EntityState.Detached;
+            return entity;
         }
 
         public void Create(Entity entity)

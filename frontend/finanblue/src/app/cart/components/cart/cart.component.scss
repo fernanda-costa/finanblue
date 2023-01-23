@@ -1,0 +1,18 @@
+
+
+.alert {
+    padding: 20px;
+    text-align: center;
+    background-color: rgba(212, 116, 116, 0.233);
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: row;
+
+    mat-card {
+        width: 200px;
+        margin: 10px;
+    }
+    
+}
