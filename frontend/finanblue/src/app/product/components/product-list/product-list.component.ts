@@ -1,7 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { CartService } from 'src/app/cart/cart.service';
 import { Product } from 'src/models/product.model';
 import { ProductService } from '../../product.service';
+import { DialogConfirmAddProductCartComponent } from '../dialog-confirm-add-product-cart/dialog-confirm-add-product-cart.component';
 
 export interface PeriodicElement {
   name: string;
@@ -30,8 +33,9 @@ export class ProductListComponent {
 
   constructor(
     private productsService: ProductService,
-    private cartService: CartService
-
+    private cartService: CartService,
+    public dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +55,11 @@ export class ProductListComponent {
 
   addToCart(product: Product): void {
     this.cartService.addProduct(product);
+    const dialogRef = this.dialog.open(DialogConfirmAddProductCartComponent, {});
+
+    dialogRef.afterClosed().subscribe(goToCart => {
+      if(goToCart) this.router.navigate(['carrinho'])
+    });
   }
 
   delete(productId: string): void {

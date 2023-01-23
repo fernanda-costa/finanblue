@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { OrderService } from 'src/app/order/order.service';
 import { CartItem } from 'src/models/cart-item.model';
 import { Cart } from 'src/models/cart.model';
@@ -15,7 +16,11 @@ export class CartComponent {
 
   cart?: Cart;
 
-  constructor(private cartService: CartService, private orderService: OrderService) {
+  constructor(
+    private cartService: CartService, 
+    private orderService: OrderService,
+    private _snackBar: MatSnackBar
+    ) {
     this.getCart();
   }
 
@@ -40,6 +45,7 @@ export class CartComponent {
     };
     this.orderService.createOrder(order).subscribe(e => {
       this.clearCart();
+      this._snackBar.open('Pedido realizado!');
     });
   }
 }

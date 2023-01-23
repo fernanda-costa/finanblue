@@ -12,6 +12,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogConfirmAddProductCartComponent } from './components/dialog-confirm-add-product-cart/dialog-confirm-add-product-cart.component';
 
 const components = [
   ProductCreateComponent,
@@ -20,7 +22,7 @@ const components = [
 ];
 
 @NgModule({
-  declarations: [...components],
+  declarations: [...components, DialogConfirmAddProductCartComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -30,7 +32,8 @@ const components = [
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
   exports: [...components]
 })
